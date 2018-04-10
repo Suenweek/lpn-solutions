@@ -1,9 +1,6 @@
-%% =========
-%% Exercices
-%% =========
-
-%% Exercice 5.2
-%% ------------
+%% ----
+%% Ex 2
+%% ----
 
 %% increment/2
 increment(X, Y) :-
@@ -13,8 +10,10 @@ increment(X, Y) :-
 sum(X, Y, Z) :-
     Z is X + Y.
 
-%% Exercice 5.3
-%% ------------
+
+%% ----
+%% Ex 3
+%% ----
 
 %% addone/2
 addone([], []).
@@ -23,12 +22,9 @@ addone([H|T], [Hi|Ti]) :-
     addone(T, Ti).
 
 
-%% =================
-%% Practical session
-%% =================
-
-%% 1. Min with accumulator
-%% -----------------------
+%% ----
+%% Ps 1
+%% ----
 
 %% acc_min/3
 acc_min([], A, A).
@@ -43,8 +39,10 @@ acc_min([H|T], A, M) :-
 min([H|T], M) :-
     acc_min(T, H, M).
 
-%% 2. Scalar multiplication
-%% ------------------------
+
+%% ----
+%% Ps 2
+%% ----
 
 %% scalar_mult/3
 scalar_mult([], _, []).
@@ -52,8 +50,10 @@ scalar_mult([ListHead|ListTail], Factor, [ResHead|ResTail]) :-
     ResHead is ListHead * Factor,
     scalar_mult(ListTail, Factor, ResTail).
 
-%% 3. Dot product with accumulator
-%% -------------------------------
+
+%% ----
+%% Ps 3
+%% ----
 
 %% acc_dot_prod/4
 acc_dot_prod([], [], A, A).

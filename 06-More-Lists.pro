@@ -1,6 +1,6 @@
-%% =======
+%% -------
 %% Chapter
-%% =======
+%% -------
 
 %% naive append/3
 append([], L, L).
@@ -35,34 +35,38 @@ accrev([ListHead|ListTail], Acc, Rev) :-
 accrev(List, Rev) :-
     accrev(List, [], Rev).
 
-%% =========
-%% Exercises
-%% =========
 
-%% Exercise 6.1
-%% ------------
+%% ----
+%% Ex 1
+%% ----
 
 %% doubled/1
 doubled(L) :-
     prefix(P, L),
     append(P, P, L).
 
-%% Exercise 6.2
-%% ------------
+
+%% ----
+%% Ex 2
+%% ----
 
 %% palindrome/1
 palindrome(L) :-
     accrev(L, L).
 
-%% Exercise 6.3
-%% ------------
+
+%% ----
+%% Ex 3
+%% ----
 
 %% toptail/2
 toptail([_|InTail], Out) :-
     append(Out, [_], InTail).
 
-%% Exercise 6.4
-%% ------------
+
+%% ----
+%% Ex 4
+%% ----
 
 %% revlast/2
 revlast(List, Last) :-
@@ -73,19 +77,5 @@ reclast([Last], Last).
 reclast([_|Tail], Last) :-
     reclast(Tail, Last).
 
-%% Exercise 6.5
-%% ------------
 
-%% TODO: Implement
-
-%% Exercise 6.6
-%% ------------
-
-%% TODO: Implement
-
-
-%% =================
-%% Practical session
-%% =================
-
-%% TODO: Implement
+%% TODO: Add solutions for Ex 5, Ex 6 and Ps

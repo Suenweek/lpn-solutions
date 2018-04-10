@@ -1,9 +1,6 @@
-%% =========
-%% Exercises
-%% =========
-
-%% Exercise 3.2
-%% ------------
+%% ----
+%% Ex 2
+%% ----
 
 %% directly_in/2
 directly_in(irina, natasha).
@@ -17,8 +14,10 @@ in(X, Y):
     directly_in(X, Z),
     in(Z, Y).
 
-%% Exercise 3.3
-%% ------------
+
+%% ----
+%% Ex 3
+%% ----
 
 %% direct_train/2
 direct_train(saarbruecken, dudweiler).
@@ -36,8 +35,10 @@ travel_from_to(X, Y) :-
     direct_train(X, Z),
     travel_from_to(Z, Y).
 
-%% Exercise 3.4
-%% ------------
+
+%% ----
+%% Ex 4
+%% ----
 
 %% greater_than/2
 greater_than(succ(X), X).
@@ -45,8 +46,9 @@ greater_than(succ(X), Y) :-
     greater_than(X, Y).
 
 
-%% Exercise 3.5
-%% ------------
+%% ----
+%% Ex 5
+%% ----
 
 %% swap/2
 swap(leaf(L), leaf(L)).
@@ -55,12 +57,9 @@ swap(tree(X, Y), tree(Ys, Xs)) :-
     swap(Y, Ys).
 
 
-%% =================
-%% Practical session
-%% =================
-
-%% 1. Maze
-%% -------
+%% ----
+%% Ps 1
+%% ----
 
 %% connected/2
 connected( 1,  2).
@@ -90,8 +89,10 @@ path(A, B) :-
     connected(A, C),
     path(C, B).
 
-%% 2. Travel (chaining)
-%% --------------------
+
+%% ----
+%% Ps 2
+%% ----
 
 %% by_car/2
 by_car(auckland, hamilton).
@@ -126,8 +127,10 @@ travel(A, B) :-
     ),
     travel(C, B).
 
-%% 3. Travel (precise path)
-%% ------------------------
+
+%% ----
+%% Ps 3
+%% ----
 
 %% travel/3
 travel(A, B, go(A, B)) :-
@@ -142,7 +145,5 @@ travel(A, B, go(A, C)) :-
     ),
     travel(C, B).
 
-%% 4. Travel (precise vehicle)
-%% ---------------------------
 
-%% TODO: Implement
+%% TODO: Add solution for Ps 4

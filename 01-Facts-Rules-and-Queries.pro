@@ -1,9 +1,6 @@
-%% =========
-%% Exercises
-%% =========
-
-%% Exercise 1.4
-%% ------------
+%% ----
+%% Ex 4
+%% ----
 
 %% 1. Butch is a killer.
 killer(butch).
