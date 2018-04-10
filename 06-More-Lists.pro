@@ -20,20 +20,20 @@ sublist(SubList, List) :-
     suffix(Suffix, List),
     prefix(SubList, Suffix).
 
-%% naiverev/2
-naiverev([], []).
-naiverev([Head|Tail], Rev) :-
-    naiverev(Tail, TailRev),
+%% naive_reverse/2
+naive_reverse([], []).
+naive_reverse([Head|Tail], Rev) :-
+    naive_reverse(Tail, TailRev),
     append(TailRev, [Head], Rev).
 
-%% accrev/3
-accrev([], Acc, Acc).
-accrev([ListHead|ListTail], Acc, Rev) :-
-    accrev(ListTail, [ListHead|Acc], Rev).
+%% acc_reverse/3
+acc_reverse([], Acc, Acc).
+acc_reverse([ListHead|ListTail], Acc, Rev) :-
+    acc_reverse(ListTail, [ListHead|Acc], Rev).
 
-%% accrev/2
-accrev(List, Rev) :-
-    accrev(List, [], Rev).
+%% acc_reverse/2
+acc_reverse(List, Rev) :-
+    acc_reverse(List, [], Rev).
 
 
 %% ----
@@ -52,7 +52,7 @@ doubled(L) :-
 
 %% palindrome/1
 palindrome(L) :-
-    accrev(L, L).
+    acc_reverse(L, L).
 
 
 %% ----
@@ -63,19 +63,69 @@ palindrome(L) :-
 toptail([_|InTail], Out) :-
     append(Out, [_], InTail).
 
+%% toptail/4
+toptail([First|Tail], First, Body, Last) :-
+    append(Body, [Last], Tail).
+
 
 %% ----
 %% Ex 4
 %% ----
 
-%% revlast/2
-revlast(List, Last) :-
-    accrev(List, [Last|_]).
+%% reversive_last/2
+reversive_last(List, Last) :-
+    acc_reverse(List, [Last|_]).
 
-%% reclast/2
-reclast([Last], Last).
-reclast([_|Tail], Last) :-
-    reclast(Tail, Last).
+%% recursive_last/2
+recursive_last([Last], Last).
+recursive_last([_|Tail], Last) :-
+    recursive_last(Tail, Last).
 
 
-%% TODO: Add solutions for Ex 5, Ex 6 and Ps
+%% ----
+%% Ex 5
+%% ----
+
+%% swapfl/2
+swapfl(In, Out) :-
+    toptail(In, First, Body, Last),
+    toptail(Out, Last, Body, First).
+
+%% TODO: Add recursive definition
+
+
+%% ----
+%% Ex 6
+%% ----
+
+to_the_right(house(R), house(L)) :-
+    to_the_left(house(L), house(R)).
+
+house(Color) :-
+    member(Color, [red, green, blue]).
+
+neighbor(Nationality) :-
+    member(Nationality, [english, spanish, japanese]).
+
+pet(Animal) :-
+    member(Animal, [jaguar, snail, zebra]).
+
+
+%% lives_in(neighbor(N), house(H)).
+%% lives_in(neighbor(english), house(red)).
+%% lives_in(neighbor(japanese), house(H1)) :-
+%%     to_the_right(house(H1), house(H2)),
+%%     lives_in(neighbor(N), house(H2)),
+%%     belongs_to(pet(snail), neighbor(N)).
+
+%% belongs_to(pet(P), neighbor(N)).
+%% belongs_to(pet(jaguar), neighbor(spanish)).
+%% belongs_to(pet(snail), neighbor(N)) :-
+%%     lives_in(neighbor(N), house(H)),
+%%     to_the_left(house(H), house(blue)).
+
+%% zebra(N) :-
+%%     belongs_to(pet(zebra), neighbor(N)).
+
+
+%% TODO: Add solutions for Ps
