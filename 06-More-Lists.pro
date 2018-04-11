@@ -98,34 +98,24 @@ swapfl(In, Out) :-
 %% Ex 6
 %% ----
 
-to_the_right(house(R), house(L)) :-
-    to_the_left(house(L), house(R)).
+street(Street) :-
+    Street = [_, _, _],
 
-house(Color) :-
-    member(Color, [red, green, blue]).
+    %% The Englishman lives in the red house
+    member(house(red, english, _), Street),
 
-neighbor(Nationality) :-
-    member(Nationality, [english, spanish, japanese]).
+    %% The jaguar is the pet of the Spanish family
+    member(house(_, spanish, jaguar), Street),
 
-pet(Animal) :-
-    member(Animal, [jaguar, snail, zebra]).
+    %% The Japanese lives to the right of the snail keeper
+    sublist([house(_, _, snail), house(_, japanese, _)], Street),
 
+    %% The snail keeper lives to the left of the blue house
+    sublist([house(_, _, snail), house(blue, _, _)], Street).
 
-%% lives_in(neighbor(N), house(H)).
-%% lives_in(neighbor(english), house(red)).
-%% lives_in(neighbor(japanese), house(H1)) :-
-%%     to_the_right(house(H1), house(H2)),
-%%     lives_in(neighbor(N), house(H2)),
-%%     belongs_to(pet(snail), neighbor(N)).
-
-%% belongs_to(pet(P), neighbor(N)).
-%% belongs_to(pet(jaguar), neighbor(spanish)).
-%% belongs_to(pet(snail), neighbor(N)) :-
-%%     lives_in(neighbor(N), house(H)),
-%%     to_the_left(house(H), house(blue)).
-
-%% zebra(N) :-
-%%     belongs_to(pet(zebra), neighbor(N)).
+zebra(Owner) :-
+    street(Street),
+    member(house(_, Owner, zebra), Street).
 
 
 %% TODO: Add solutions for Ps
