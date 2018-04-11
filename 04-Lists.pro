@@ -46,4 +46,31 @@ twice([H|T], [H,H|T2]) :-
     twice(T, T2).
 
 
-%% TODO: Add solutions for Ps
+%% ----
+%% Ps 1
+%% ----
+
+%% combine/3
+combine([], [], []).
+combine([H1|T1], [H2|T2], [H1,H2|T3]) :-
+    combine1(T1, T2, T3).
+
+
+%% ----
+%% Ps 2
+%% ----
+
+%% zip/3
+zip([], [], []).
+zip([H1|T1], [H2|T2], [[H1,H2]|T3]) :-
+    zip(T1, T2, T3).
+
+
+%% ----
+%% Ps 3
+%% ----
+
+%% jmap/3
+jmap([], [], []).
+jmap([H1|T1], [H2|T2], [j(H1,H2)|T3]) :-
+    jmap(T1, T2, T3).
