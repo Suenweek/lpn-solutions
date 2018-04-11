@@ -60,12 +60,12 @@ palindrome(L) :-
 %% ----
 
 %% toptail/2
-toptail([_|InTail], Out) :-
-    append(Out, [_], InTail).
+toptail(In, Out) :-
+    append([_|Out], [_], In).
 
 %% toptail/4
-toptail([First|Tail], First, Body, Last) :-
-    append(Body, [Last], Tail).
+toptail(List, First, Body, Last) :-
+    append([First|Body], [Last], List).
 
 
 %% ----
@@ -90,8 +90,6 @@ recursive_last([_|Tail], Last) :-
 swapfl(In, Out) :-
     toptail(In, First, Body, Last),
     toptail(Out, Last, Body, First).
-
-%% TODO: Add recursive definition
 
 
 %% ----
@@ -118,4 +116,8 @@ zebra(Owner) :-
     member(house(_, Owner, zebra), Street).
 
 
-%% TODO: Add solutions for Ps
+%% ----
+%% Ps 1
+%% ----
+
+
