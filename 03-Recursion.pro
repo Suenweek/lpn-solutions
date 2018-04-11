@@ -10,7 +10,7 @@ directly_in(olga, katarina).
 %% in/2
 in(X, Y) :-
     directly_in(X, Y).
-in(X, Y):
+in(X, Y) :-
     directly_in(X, Z),
     in(Z, Y).
 
@@ -21,12 +21,12 @@ in(X, Y):
 
 %% direct_train/2
 direct_train(saarbruecken, dudweiler).
-direct_train(forbach, saarbruecken).
-direct_train(freyming, forbach).
-direct_train(stAvold, freyming).
-direct_train(fahlquemont, stAvold).
-direct_train(metz, fahlquemont).
-direct_train(nancy, metz).
+direct_train(forbach,      saarbruecken).
+direct_train(freyming,     forbach).
+direct_train(stAvold,      freyming).
+direct_train(fahlquemont,  stAvold).
+direct_train(metz,         fahlquemont).
+direct_train(nancy,        metz).
 
 %% travel_from_to/2
 travel_from_to(X, Y) :-
@@ -114,17 +114,18 @@ by_plane(bangkok,    auckland).
 by_plane(singapore,  auckland).
 by_plane(losAngeles, auckland).
 
-%% travel/2
-travel(A, B) :-
+%% travel_dir/2
+travel_dir(A, B) :-
     by_car(A, B);
     by_train(A, B);
     by_plane(A, B).
+
+%% travel/2
 travel(A, B) :-
-    (
-        by_car(A, C);
-        by_train(A, C);
-        by_plane(A, C)
-    ),
+    travel_dir(A, B).
+
+travel(A, B) :-
+    travel_dir(A, C),
     travel(C, B).
 
 
@@ -134,16 +135,32 @@ travel(A, B) :-
 
 %% travel/3
 travel(A, B, go(A, B)) :-
-    by_car(A, B);
-    by_train(A, B);
+    travel_dir(A, B).
+
+travel(A, B, go(A, C, Go)) :-
+    travel_dir(A, C),
+    travel(C, B, Go).
+
+
+%% ----
+%% Ps 4
+%% ----
+
+%% travel_by/3
+travel_by(A, B, go(by_car(A, B))) :-
+    by_car(A, B).
+travel_by(A, B, go(by_train(A, B))) :-
+    by_train(A, B).
+travel_by(A, B, go(by_plane(A, B))) :-
     by_plane(A, B).
-travel(A, B, go(A, C)) :-
-    (
-        by_car(A, C);
-        by_train(A, C);
-        by_plane(A, C)
-    ),
-    travel(C, B).
 
+travel_by(A, B, go(by_car(A, C), Go)) :-
+    by_car(A, C),
+    travel_by(C, B, Go).
+travel_by(A, B, go(by_train(A, C), Go)) :-
+    by_train(A, C),
+    travel_by(C, B, Go).
+travel_by(A, B, go(by_plane(A, C), Go)) :-
+    by_plane(A, C),
+    travel_by(C, B, Go).
 
-%% TODO: Add solution for Ps 4
