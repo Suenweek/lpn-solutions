@@ -96,6 +96,7 @@ swapfl(In, Out) :-
 %% Ex 6
 %% ----
 
+%% street/1
 street(Street) :-
     Street = [_, _, _],
 
@@ -111,6 +112,7 @@ street(Street) :-
     %% The snail keeper lives to the left of the blue house
     sublist([house(_, _, snail), house(blue, _, _)], Street).
 
+%% zebra/1
 zebra(Owner) :-
     street(Street),
     member(house(_, Owner, zebra), Street).
@@ -120,4 +122,38 @@ zebra(Owner) :-
 %% Ps 1
 %% ----
 
+%% amember/2
+amember(Item, List) :-
+    append(_, [Item|_], List).
 
+
+%% ----
+%% Ps 2
+%% ----
+
+%% subset/2
+subset([], _).
+subset([H|T], Set) :-
+    member(H, Set),
+    subset(T, Set).
+
+%% s_set/2
+s_set(List, Set) :-
+    length(List, LenL),
+    length(Set, LenS),
+    LenL >= LenS,
+    subset(List, Set).
+
+%% acc_set/3
+acc_set([], Set, Set).
+acc_set([ListHead|ListTail], Acc, Set) :-
+    not(member(ListHead, Acc)),
+    append(Acc, [ListHead], NewAcc),
+    acc_set(ListTail, NewAcc, Set).
+acc_set([ListHead|ListTail], Acc, Set) :-
+    member(ListHead, Acc),
+    acc_set(ListTail, Acc, Set).
+
+%% a_set/2
+a_set(List, Set) :-
+    acc_set(List, [], Set).
