@@ -157,3 +157,18 @@ acc_set([ListHead|ListTail], Acc, Set) :-
 %% a_set/2
 a_set(List, Set) :-
     acc_set(List, [], Set).
+
+
+%% ----
+%% Ps 3
+%% ----
+
+flatten([], []).
+flatten([Head|Tail], [Head|FlatTail]) :-
+    not(is_list(Head)),
+    flatten(Tail, FlatTail).
+flatten([Head|Tail], Flat) :-
+    is_list(Head),
+    flatten(Head, FlatHead),
+    flatten(Tail, FlatTail),
+    append(FlatHead, FlatTail, Flat).
