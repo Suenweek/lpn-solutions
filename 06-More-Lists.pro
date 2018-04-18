@@ -163,12 +163,25 @@ a_set(List, Set) :-
 %% Ps 3
 %% ----
 
-flatten([], []).
-flatten([Head|Tail], [Head|FlatTail]) :-
-    not(is_list(Head)),
-    flatten(Tail, FlatTail).
-flatten([Head|Tail], Flat) :-
+%% flatten/2
+%% flatten([], []).
+%% flatten([Head|Tail], [Head|FlatTail]) :-
+%%     not(is_list(Head)),
+%%     flatten(Tail, FlatTail).
+%% flatten([Head|Tail], Flat) :-
+%%     is_list(Head),
+%%     flatten(Head, FlatHead),
+%%     flatten(Tail, FlatTail),
+%%     append(FlatHead, FlatTail, Flat).
+foo.
+
+extract_first_deepest([Head|Tail], Head, Tail) :-
+    not(is_list(Head)).
+
+extract_first_deepest([Head|Tail], Deepest, [Remainder|Tail]) :-
     is_list(Head),
-    flatten(Head, FlatHead),
-    flatten(Tail, FlatTail),
-    append(FlatHead, FlatTail, Flat).
+    extract_first_deepest(Head, Deepest, Remainder).
+
+%% flatten(List, [Deepest|FlatRemainder]) :-
+%%     extract_first_deepest(List, Deepest, Remainder),
+%%     flatten(Remainder, FlatRemainder).
