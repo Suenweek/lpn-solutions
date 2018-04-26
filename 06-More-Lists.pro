@@ -163,25 +163,25 @@ a_set(List, Set) :-
 %% Ps 3
 %% ----
 
-%% flatten/2
-%% flatten([], []).
-%% flatten([Head|Tail], [Head|FlatTail]) :-
-%%     not(is_list(Head)),
-%%     flatten(Tail, FlatTail).
-%% flatten([Head|Tail], Flat) :-
-%%     is_list(Head),
-%%     flatten(Head, FlatHead),
-%%     flatten(Tail, FlatTail),
-%%     append(FlatHead, FlatTail, Flat).
-foo.
+%% flatten_with_append/2
+flatten_with_append([], []).
+flatten_with_append([Head|Tail], [Head|FlatTail]) :-
+    not(is_list(Head)),
+    flatten_with_append(Tail, FlatTail).
+flatten_with_append([Head|Tail], Flat) :-
+    flatten_with_append(Head, FlatHead),
+    flatten_with_append(Tail, FlatTail),
+    append(FlatHead, FlatTail, Flat).
 
-extract_first_deepest([Head|Tail], Head, Tail) :-
-    not(is_list(Head)).
+%% acc_flatten/3
+acc_flatten([], Flat, Flat).
+acc_flatten(Item, Acc, [Item|Acc]) :-
+    not(is_list(Item)).
+acc_flatten([Head|Tail], Acc, Flat) :-
+    acc_flatten(Head, Acc, NewAcc),
+    acc_flatten(Tail, NewAcc, Flat).
 
-extract_first_deepest([Head|Tail], Deepest, [Remainder|Tail]) :-
-    is_list(Head),
-    extract_first_deepest(Head, Deepest, Remainder).
-
-%% flatten(List, [Deepest|FlatRemainder]) :-
-%%     extract_first_deepest(List, Deepest, Remainder),
-%%     flatten(Remainder, FlatRemainder).
+%% flatten_with_acc/2
+flatten_with_acc(List, Flat) :-
+    acc_flatten(List, [], RevFlat),
+    acc_reverse(RevFlat, Flat).
